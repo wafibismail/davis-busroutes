@@ -26,12 +26,16 @@ const ANNPredictiveModel_prediction = await Deno.readTextFile("./app_assets/page
 function getClientHtml(domain) {
   return `<html>
     <body>
+      <div id="controls">
+        <button id="loader"></button>
+      </div>
       <div id="the_output">
         <iframe id="the_iframe" height="100%" width="100%" title="Dashboard"></iframe>
       </div>
       <script>
         const ws = new WebSocket("wss://${domain}/");
         const output = document.querySelector("#the_output");
+        const loader = document.querySelector("loader");
         const write = (msg) => {
           output.innerHTML = '<iframe id="the_iframe" height="100%" width="100%" title="Dashboard"></iframe>';
           let the_iframe = document.querySelector("#the_iframe");
@@ -42,9 +46,7 @@ function getClientHtml(domain) {
         ws.onmessage = (e) => write(e.data);
 
         // Ping the server every second
-        setInterval(() => {
-          ws.send("ping");
-        }, 10000);
+        loader.onclick = function(){ws.send("ping")};
       </script>
     </body>
   </html>`;
