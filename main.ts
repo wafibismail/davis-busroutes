@@ -47,6 +47,9 @@ function getClientHtml(domain) {
 
         // Ping the server every second
         loader.onclick = function(){ws.send("ping")};
+        setInterval(() => {
+          ws.send("ping");
+        }, 10000);
       </script>
     </body>
   </html>`;
