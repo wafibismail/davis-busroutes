@@ -31,7 +31,7 @@ The concepts used mostly are similar to the ones applied in the aforementioned p
 Everything is done in [notebook.ipynb](notebook.ipynb).
 
 ### Imports
-The project makes use of the following packages & specific classes, most notably from [Plotly](https://plotly.com/python/), [`scikit-learn'](https://scikit-learn.org/stable/index.html), and [TensorFlow](https://www.tensorflow.org/).
+The project makes use of the following packages & specific classes, most notably from [Plotly](https://plotly.com/python/), [scikit-learn](https://scikit-learn.org/stable/index.html), and [TensorFlow](https://www.tensorflow.org/).
 
 ```Python
 # for plotting
@@ -74,7 +74,7 @@ Thus, we _clean_ the dataset in response to the above by:
 - extracting meaningful pair of columns to generate meaningful data - new set of tuples - with the following features:
   - `path#` - indicates which path the tuple belongs to. $0,1,\ldots,7$ representing the paths _1<-2_, _2<-3_, ..., _8<-9_ respectively
   - `day#` - day of the week with $0,1,\ldots,6$ representing _Sunday_, _Monday_, ... _Saturday_ respectively
-  - `time` - descritized time of day with $0,1,\ldots,9$ representing _06:00-08:00_, _08:00_-_10:00_, ... _23:15_-_00:00_ respectively
+  - `time#` - descritized time of day with $0,1,\ldots,9$ representing _06:00-08:00_, _08:00_-_10:00_, ... _23:15_-_00:00_ respectively, which is the average time between the departure from bus stop $s_i$ and arrival time to bus stop $s_{{s+1}}$
   - `move_duration` - how long the travel takes - in seconds - from between busstops $s_i$ and $s_{{i+1}}$ in the path $s_i$_<-_$s_{{i+1}}$
   - `previous_move_duration` - same as above, but for the trip exactly before it, 0 if invalid
   - `previous_previous_move_duration` - same as above, but a step further
@@ -82,3 +82,19 @@ Thus, we _clean_ the dataset in response to the above by:
 After cleaning the data, there are:
 - **1209** total number of usable records that can be used for regressors
 - **497** total number of records that can be used for the ANN Tri-gram model (records with valid `previous_move_duration` & `previous_move_duration` values)
+
+#### Discretization of time
+Before the decision to discretize the time of each record, we observed that each one of them fall into one of nine chunks, as illustrated below.
+[![](repo_assets/time_chunks.png)](#)
+
+In order to keep as much information as possible, we have decided to discretize the time according to exactly these time chunks, which are
+- 6:00-8:00,
+- 8:00-10:00,
+- 10:00-12:00,
+- 12:00-13:30,
+- 13:30-16:00,
+- 16:00-17:30,
+- 17:30-19:30,
+- 19:30-21:30,
+- 21:30-23:15 and
+- 23:13-24:00.
