@@ -146,6 +146,7 @@ def evaluate_regressor(regressor, X, y, N=100, name="Regressor"):
     r_sq.append(corrcoef[n]**2)
     rmse.append(np.sqrt(mean_squared_error(y_test, y_pred)))
 
+  # Display averages of evaluation metrics and their standard deviations
   print("Average computed over " + str(N) + " runs")
   print("corrcoef - avg:",np.mean(corrcoef),"std:",np.std(corrcoef))
   print("R-squared - avg:",np.mean(r_sq),"std:",np.std(r_sq))
