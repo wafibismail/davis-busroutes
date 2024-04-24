@@ -2,15 +2,6 @@
 function getClientHtml(domain) {
   return `<html>
     <body>
-      <script>
-        const ws = new WebSocket("wss://${domain}/");
-        const output = document.querySelector("#the_output");
-        const write = (msg) => {
-          output.innerHTML = '<iframe id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>';
-          document.querySelector("#the_iframe").contentWindow.document.write(msg);
-        }
-        ws.onmessage = (e) => write(e.data);
-      </script>
       <div style="display: flex;" id="controls" height="10%" width="100%">
         <button style="flex: 1;" onclick="ws.send(0)">Mean Move Durations (by path)</button>
         <button style="flex: 1;" onclick="ws.send(1)">Idle Durations</button>
@@ -28,6 +19,15 @@ function getClientHtml(domain) {
       <div id="the_output" height="90%" width="100%">
         <iframe onload="ws.send(0)" id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>
       </div>
+      <script>
+        const ws = new WebSocket("wss://${domain}/");
+        const output = document.querySelector("#the_output");
+        const write = (msg) => {
+          output.innerHTML = '<iframe id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>';
+          document.querySelector("#the_iframe").contentWindow.document.write(msg);
+        }
+        ws.onmessage = (e) => write(e.data);
+      </script>
     </body>
   </html>`;
 }
