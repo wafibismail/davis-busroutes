@@ -106,8 +106,8 @@ def to_seconds(column):
 ```
 
 ### Discretization of time
-Before the decision to discretize the time of each record, we observed that each one of them fall into one of nine chunks, as illustrated below.
-[![](repo_assets/time_chunks.png)](#)
+Before the decision to discretize the time of each record, we observed that each one of them fall into one of ten chunks, as illustrated below.
+![Photo illustrating the separation of records by obvious chunks](repo_assets/time_chunks.png)
 
 In order to keep as much information as possible, while simplifying inputs to feed the models with, we have decided to discretize the time according to exactly these ten chunks, which are
 - *06:00*-*08:00* -> 0,
@@ -123,5 +123,12 @@ In order to keep as much information as possible, while simplifying inputs to fe
 
 # Models
 ## Descriptive Statistic Baseline Models
+Let $S = \[s_1, \ldots, s_n\]$ be a sequence of n bus stops on the examined service route, $a_{s_i}$ be the ETA of a bus to bus stop $s_i$, and $l_{s_i}$ its departure from $s_i$.
+
+With no available GPS data, the ETA of a bus arriving at $s_{i+1}$ in `path` $(s_{i} \rightarrow s_{i+1})$ can be computed from the historical `duration` values $d(s_i, s_{i+1})$ where $d(s_i, d_{s+1}) = a_{s_{i+1}} - l_{s_i}$.
+
+Thus, the mean value for all observations - which can serve as a simple baseline model, can be expressed as such
+$$\mathop{\mathbb{E}}[d(s_i,s_{i+1})]= \frac{1}{N}\sum_{j=1}^N(a_{s_{i+1}} - l_{s_i})_j$$
+
 ## Nonlinear Regression Models
 ## Predictive Model
