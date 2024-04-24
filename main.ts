@@ -26,10 +26,11 @@ const ANNPredictiveModel_prediction = await Deno.readTextFile("./app_assets/page
 function getClientHtml(domain) {
   return `<html>
     <body>
-      <div id="controls">
-        <button id="loader"></button>
+      <div id="controls" height="10%" width="100%">
+        <button id="loader" onclick="ws.send(0)">AAA</button>
+        <button id="loader2">AAA</button>
       </div>
-      <div id="the_output">
+      <div id="the_output" height="90%" width="100%">
         <iframe id="the_iframe" height="100%" width="100%" title="Dashboard"></iframe>
       </div>
       <script>
@@ -46,7 +47,6 @@ function getClientHtml(domain) {
         ws.onmessage = (e) => write(e.data);
 
         // Ping the server every second
-        loader.onclick = function(){ws.send("ping")};
       </script>
     </body>
   </html>`;
@@ -61,7 +61,10 @@ Deno.serve((request: Request) => {
     // Listen for incoming messages
     socket.onmessage = (_e) => {
       console.log("ping");
-      socket.send(pva_time_day);
+      if (_e.data==0)
+        socket.send(pva_time_day);
+      else
+        socket.send("nah");
     };
 
     return response;
