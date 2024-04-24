@@ -119,7 +119,7 @@ In order to keep as much information as possible, while simplifying inputs to fe
 - *17:30*-*19:30* -> 6,
 - *19:30*-*21:30* -> 7,
 - *21:30*-*23:15* -> 8 and
-- *23:13*-*24:00* -> 9.
+- *23:15*-*24:00* -> 9.
 
 In the code, this is done as such
 ```Python
@@ -186,6 +186,15 @@ With no available GPS data, the ETA of a bus arriving at $s_{i+1}$ in `path` $(s
 
 Thus, the mean value for all observations - which can serve as a simple baseline model, can be expressed as such
 $$\mathop{\mathbb{E}}[d(s_i,s_{i+1})]= \frac{1}{N}\sum_{j=1}^N(a_{s_{i+1}} - l_{s_i})_j$$
+
+The output of the computations can be observed below
+
+<table>
+  <tr><th colspan=3>Grouped by Path</th></tr>
+  <tr><td colspan=3><img src=repo_assets/mean_by_path.png></td></tr>
+  <tr><th>Grouped by Path and Time</th><th>Grouped by Path and Day</th><th>Grouped by Time and Day</th></tr>
+  <tr><td><img src=repo_assets/mean_by_path_time.png></td><td><img src=repo_assets/mean_by_path_day.png></td><td><img src=repo_assets/mean_by_time_day.png></td></tr>
+</table>
 
 ## Nonlinear Regression Models
 ## Predictive Model
