@@ -2,6 +2,9 @@
 function getClientHtml(domain) {
   return `<html>
     <body>
+      <script>
+        const ws = new WebSocket("wss://${domain}/");
+      </script>
       <div style="display: flex;" id="controls" height="10%" width="100%">
         <button style="flex: 1;" onclick="ws.send(0)">Mean Move Durations (by path)</button>
         <button style="flex: 1;" onclick="ws.send(1)">Idle Durations</button>
@@ -20,7 +23,6 @@ function getClientHtml(domain) {
         <iframe onload="ws.send(0)" id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>
       </div>
       <script>
-        const ws = new WebSocket("wss://${domain}/");
         const output = document.querySelector("#the_output");
         const write = (msg) => {
           output.innerHTML = '<iframe id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>';
