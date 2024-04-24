@@ -1,4 +1,3 @@
-// A very simple web socket client
 function getClientHtml(domain) {
   return `<html>
     <body>
@@ -46,7 +45,6 @@ const RandomForestRegressor_prediction = await Deno.readTextFile("./app_assets/p
 const KNearestNeighborsRegressor_prediction = await Deno.readTextFile("./app_assets/pages/KNearestNeighborsRegressor_prediction.html");
 const ANNPredictiveModel_prediction = await Deno.readTextFile("./app_assets/pages/ANNPredictiveModel_prediction.html");
 
-// A simple WebSocket server
 Deno.serve((request: Request) => {
   if (request.headers.get("upgrade") === "websocket") {
     // Upgrade to a web socket response if requested
@@ -66,7 +64,7 @@ Deno.serve((request: Request) => {
       else if (_e.data==9) socket.send(RandomForestRegressor_prediction);
       else if (_e.data==10) socket.send(KNearestNeighborsRegressor_prediction);
       else if (_e.data==11) socket.send(ANNPredictiveModel_prediction);
-      else socket.send("nah");
+      else socket.send("Invalid code");
     };
 
     return response;
