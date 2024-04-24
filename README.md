@@ -96,7 +96,7 @@ def to_seconds(column):
 Before the decision to discretize the time of each record, we observed that each one of them fall into one of nine chunks, as illustrated below.
 [![](repo_assets/time_chunks.png)](#)
 
-In order to keep as much information as possible, while simplifying inputs to feed the models with, we have decided to discretize the time according to exactly these time chunks, which are
+In order to keep as much information as possible, while simplifying inputs to feed the models with, we have decided to discretize the time according to exactly these ten chunks, which are
 - 06:00-08:00 -> 0,
 - 08:00-10:00 -> 1,
 - 10:00-12:00 -> 2,
