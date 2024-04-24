@@ -2,28 +2,28 @@
 function getClientHtml(domain) {
   return `<html>
     <body>
-      <div id="controls" height="10%" width="100%">
-        <button onclick="ws.send(0)">Mean Move Durations (by path)</button>
-        <button onclick="ws.send(1)">Idle Durations</button>
-        <button onclick="ws.send(2)">Move Durations</button>
-        <button onclick="ws.send(3)">Time (Discritized)</button>
-        <button onclick="ws.send(4)">Time (Undiscritized)</button>
-        <button onclick="ws.send(5)">Surface (Path/Time)</button>
-        <button onclick="ws.send(6)">Surface (Path/Day)</button>
-        <button onclick="ws.send(7)">Surface (Time/Day)</button>
-        <button onclick="ws.send(8)">Evaluation (DT)</button>
-        <button onclick="ws.send(9)">Evaluation (RF)</button>
-        <button onclick="ws.send(10)">Evaluation (KNN)</button>
-        <button onclick="ws.send(11)">Evaluation (ANN)</button>
+      <div style="display: flex;" id="controls" height="10%" width="100%">
+        <button style="flex: 1;" onclick="ws.send(0)">Mean Move Durations (by path)</button>
+        <button style="flex: 1;" onclick="ws.send(1)">Idle Durations</button>
+        <button style="flex: 1;" onclick="ws.send(2)">Move Durations</button>
+        <button style="flex: 1;" onclick="ws.send(3)">Time (Discritized)</button>
+        <button style="flex: 1;" onclick="ws.send(4)">Time (Undiscritized)</button>
+        <button style="flex: 1;" onclick="ws.send(5)">Surface (Path/Time)</button>
+        <button style="flex: 1;" onclick="ws.send(6)">Surface (Path/Day)</button>
+        <button style="flex: 1;" onclick="ws.send(7)">Surface (Time/Day)</button>
+        <button style="flex: 1;" onclick="ws.send(8)">Evaluation (DT)</button>
+        <button style="flex: 1;" onclick="ws.send(9)">Evaluation (RF)</button>
+        <button style="flex: 1;" onclick="ws.send(10)">Evaluation (KNN)</button>
+        <button style="flex: 1;" onclick="ws.send(11)">Evaluation (ANN)</button>
       </div>
       <div id="the_output" height="90%" width="100%">
-        <iframe id="the_iframe" height="100%" width="100%" title="Dashboard"></iframe>
+        <iframe id="the_iframe" height="90%" width="100%" title="Dashboard"></iframe>
       </div>
       <script>
         const ws = new WebSocket("wss://${domain}/");
         const output = document.querySelector("#the_output");
         const write = (msg) => {
-          output.innerHTML = '<iframe id="the_iframe" height="100%" width="100%" title="Dashboard"></iframe>';
+          output.innerHTML = '<iframe id="the_iframe" height="95%" width="100%" title="Dashboard"></iframe>';
           document.querySelector("#the_iframe").contentWindow.document.write(msg);
         }
         ws.onmessage = (e) => write(e.data);
