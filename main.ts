@@ -35,7 +35,7 @@ function getClientHtml(domain) {
       <script>
         const ws = new WebSocket("wss://${domain}/");
         const output = document.querySelector("#the_output");
-        const loader = document.querySelector("loader");
+        const loader = document.querySelector("#loader");
         const write = (msg) => {
           output.innerHTML = '<iframe id="the_iframe" height="100%" width="100%" title="Dashboard"></iframe>';
           let the_iframe = document.querySelector("#the_iframe");
@@ -47,9 +47,6 @@ function getClientHtml(domain) {
 
         // Ping the server every second
         loader.onclick = function(){ws.send("ping")};
-        setInterval(() => {
-          ws.send("ping");
-        }, 10000);
       </script>
     </body>
   </html>`;
