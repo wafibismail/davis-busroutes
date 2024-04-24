@@ -27,10 +27,23 @@ We were free to do as we please with the dataset and with the knowledge we learn
 
 The concepts used mostly are similar to the ones applied in the aforementioned project. However the steps in producing the results are fully from our own mental and physical effort.
 
-## Code
+### ETA Approaches
+Similar to the paper ["Non-GPS-based ..."](https://ieeexplore.ieee.org/abstract/document/10147536), we have employed three approaches in estimating estimated time of arrival (ETA) of busses based on information distilled from the raw data. Namely:
+1. ETA from descriptive statistical measures ([see section](#descriptive-statistic-baseline-models)), describing the ETA central tendency from all observed data.
+2. ETA from nonlinear regression models ([see section](#nonlinear-regression-models)), which are capable of describing ETA estimation with attention to the local context. These models are
+   - k-nearest neighbors regressor (KNN),
+   - decision tree regressor (DT),
+   - and random forest regressor (RF).
+4. ETA predicted from a tri-gram predictive model ([see section](#predictive-model)), which predicts the next ETA based on
+   - its two preceding busstops’ in-between travel durations, as well as
+   - local context of the traffic environment.
+
+---
+
+# Code
 Everything is done in [notebook.ipynb](notebook.ipynb).
 
-### Imports
+## Imports
 The project makes use of the following packages & specific classes, most notably from [Plotly](https://plotly.com/python/), [scikit-learn](https://scikit-learn.org/stable/index.html), and [TensorFlow](https://www.tensorflow.org/).
 
 ```Python
@@ -64,7 +77,7 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import _tree
 ```
 
-### Cleaning & Preparing Data
+## Cleaning & Preparing Data
 The raw dataset, described in [This Project > Raw Data](#raw-data), contains:
 - unneeded columns
 - some missing entries within the records
@@ -83,7 +96,7 @@ After cleaning the data, there are:
 - **1209** total number of usable records that can be used for regressors
 - **497** total number of records that can be used for the ANN Tri-gram model (records with valid `previous_move_duration` & `previous_move_duration` values)
 
-#### Conversion of time strings to integers (seconds)
+### Conversion of time strings to integers (seconds)
 Initially, the `timestamp_in` and `timestamp_out` columns of the original `DataFrame`s contains data of type string. To prepare them for processing, by the use of the following `to_seconds(column)` method, which accepts a `DataFrame` column as its argument, it is first converted to a Pandas datetime object, before the hours, minutes, and seconds are extracted and converted to seconds, ignoring the date. NaN values are converted to 0 for ease of processing
 ```Python
 def to_seconds(column):
@@ -92,7 +105,7 @@ def to_seconds(column):
   return (time.dt.hour*60+time.dt.minute)*60 + time.dt.second
 ```
 
-#### Discretization of time
+### Discretization of time
 Before the decision to discretize the time of each record, we observed that each one of them fall into one of nine chunks, as illustrated below.
 [![](repo_assets/time_chunks.png)](#)
 
@@ -107,3 +120,8 @@ In order to keep as much information as possible, while simplifying inputs to fe
 - *19:30*-*21:30* -> 7,
 - *21:30*-*23:15* -> 8 and
 - *23:13*-*24:00* -> 9.
+
+# Models
+## Descriptive Statistic Baseline Models
+## Nonlinear Regression Models
+## Predictive Model
