@@ -1,11 +1,15 @@
 // A very simple web socket client
+/*
 function getClientHtml(domain) {
   return `<html>
     <body>
-      <iframe title="PVA - Time vs Day"></iframe>
+      <iframe id="iframe1"title="PVA - Time vs Day"></iframe>
+      <script>
+        document.getElementById('iframe1').contentWindow.document.write("<html><body>Hello world</body></html>");
+      </script>
     </body>
   </html>`;
-}
+}*/
 const means = await Deno.readTextFile("./app_assets/pages/means.html");
 const move_durations = await Deno.readTextFile("./app_assets/pages/idle_durations.html");
 const time_discretized = await Deno.readTextFile("./app_assets/pages/time_discretized.html");
@@ -18,12 +22,51 @@ const KNearestNeighborsRegressor_prediction = await Deno.readTextFile("./app_ass
 const DecisionTreeRegressor_prediction = await Deno.readTextFile("./app_assets/pages/DecisionTreeRegressor_prediction.html");
 const ANNPredictiveModel_prediction = await Deno.readTextFile("./app_assets/pages/ANNPredictiveModel_prediction.html");
 
-// A simple Web server
+// A very simple web socket client
+function getClientHtml(domain) {
+  return `<html>
+    <body>
+      <div id="the_output">
+        <iframe id="the_iframe" title="Dashboard"></iframe>
+      </div>
+      <script>
+        const ws = new WebSocket("wss://${domain}/");
+        const output = document.querySelector("#the_output");
+        const write = (msg) => {
+          output.innerHTML = '<iframe id="the_iframe" title="Dashboard"></iframe>';
+          let the_iframe = document.querySelector("#the_iframe");
+          the_iframe.contentWindow.document.write(msg);
+        }
+
+        // Print a "pong" when the server responds
+        ws.onmessage = (e) => write(e.data);
+
+        // Ping the server every second
+        setInterval(() => {
+          ws.send("ping");
+        }, 10000);
+      </script>
+    </body>
+  </html>`;
+}
+
+// A simple WebSocket server
 Deno.serve((request: Request) => {
-  function getClientHtml(domain) {
-    return pva_time_day;
-  };
-  const url = new URL(request.url);
-  const body = new TextEncoder().encode(getClientHtml(url.host));
-  return new Response(body);
+  if (request.headers.get("upgrade") === "websocket") {
+    // Upgrade to a web socket response if requested
+    const { socket, response } = Deno.upgradeWebSocket(request);
+
+    // Listen for incoming messages
+    socket.onmessage = (_e) => {
+      console.log("ping");
+      socket.send(pva_time_day);
+    };
+
+    return response;
+  } else {
+    // Normal HTTP requests receive the client HTML
+    const url = new URL(request.url);
+    const body = new TextEncoder().encode(getClientHtml(url.host));
+    return new Response(body);
+  }
 });
