@@ -6,7 +6,7 @@
     <tr><th>Content</th><th>Description</th></tr>
     <tr><td><a href=https://colab.research.google.com/github/wafibismail/davis-busroutes/blob/main/notebook.ipynb>notebook.ipynb</a></td><td>Python notebook file imported from Colab</td></tr>
     <tr><td><a href=raw_dataset>raw_dataset</a></td><td>Directory containing the 26 .csv files</td></tr>
-    <tr><td><a href=main.ts>main.ts</a></td><td>Entry point for the web-app</td></tr>
+    <tr><td><a href=main.ts>main.ts</a></td><td>Entry point for the <a href=https://davis-busroutes.deno.dev/>web-app</a></td></tr>
   </table>
   <hr>
 </div>
