@@ -83,18 +83,27 @@ After cleaning the data, there are:
 - **1209** total number of usable records that can be used for regressors
 - **497** total number of records that can be used for the ANN Tri-gram model (records with valid `previous_move_duration` & `previous_move_duration` values)
 
+#### Conversion of time strings to integers (seconds)
+Initially, the `timestamp_in` and `timestamp_out` columns of the original `DataFrame`s contains data of type string. To prepare them for processing, by the use of the following `to_seconds(column)` method, which accepts a `DataFrame` column as its argument, it is first converted to a Pandas datetime object, before the hours, minutes, and seconds are extracted and converted to seconds, ignoring the date. NaN values are converted to 0 for ease of processing
+```Python
+def to_seconds(column):
+  time = pd.to_datetime(column, format= '%H:%M:%S' )
+  time = time.fillna(datetime(2024,1,1)) # assign NaN -> 0
+  return (time.dt.hour*60+time.dt.minute)*60 + time.dt.second
+```
+
 #### Discretization of time
 Before the decision to discretize the time of each record, we observed that each one of them fall into one of nine chunks, as illustrated below.
 [![](repo_assets/time_chunks.png)](#)
 
-In order to keep as much information as possible, we have decided to discretize the time according to exactly these time chunks, which are
-- 6:00-8:00,
-- 8:00-10:00,
-- 10:00-12:00,
-- 12:00-13:30,
-- 13:30-16:00,
-- 16:00-17:30,
-- 17:30-19:30,
-- 19:30-21:30,
-- 21:30-23:15 and
-- 23:13-24:00.
+In order to keep as much information as possible, while simplifying inputs to feed the models with, we have decided to discretize the time according to exactly these time chunks, which are
+- 06:00-08:00 -> 0,
+- 08:00-10:00 -> 1,
+- 10:00-12:00 -> 2,
+- 12:00-13:30 -> 3,
+- 13:30-16:00 -> 4,
+- 16:00-17:30 -> 5,
+- 17:30-19:30 -> 6,
+- 19:30-21:30 -> 7,
+- 21:30-23:15 -> 8 and
+- 23:13-24:00 -> 9.
