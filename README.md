@@ -97,13 +97,13 @@ Before the decision to discretize the time of each record, we observed that each
 [![](repo_assets/time_chunks.png)](#)
 
 In order to keep as much information as possible, while simplifying inputs to feed the models with, we have decided to discretize the time according to exactly these ten chunks, which are
-- 06:00-08:00 -> 0,
-- 08:00-10:00 -> 1,
-- 10:00-12:00 -> 2,
-- 12:00-13:30 -> 3,
-- 13:30-16:00 -> 4,
-- 16:00-17:30 -> 5,
-- 17:30-19:30 -> 6,
-- 19:30-21:30 -> 7,
-- 21:30-23:15 -> 8 and
-- 23:13-24:00 -> 9.
+- *06:00*-*08:00* -> 0,
+- *08:00*-*10:00* -> 1,
+- *10:00*-*12:00* -> 2,
+- *12:00*-*13:30* -> 3,
+- *13:30*-*16:00* -> 4,
+- *16:00*-*17:30* -> 5,
+- *17:30*-*19:30* -> 6,
+- *19:30*-*21:30* -> 7,
+- *21:30*-*23:15* -> 8 and
+- *23:13*-*24:00* -> 9.
