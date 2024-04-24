@@ -4,7 +4,7 @@
   <p>This is a repository for source files for the <i>CI5304: Data Analytics and Visualization (DAVIS)</i> module's group assignment.</p><br />
   <table>
     <tr><th>Content</th><th>Description</th></tr>
-    <tr><td><a href=notebook.ipynb>notebook.ipynb</a></td><td>Python notebook file imported from Colab</td></tr>
+    <tr><td><a href=https://colab.research.google.com/github/wafibismail/davis-busroutes/blob/main/notebook.ipynb>notebook.ipynb</a></td><td>Python notebook file imported from Colab</td></tr>
     <tr><td><a href=raw_dataset>raw_dataset</a></td><td>Directory containing the 26 .csv files</td></tr>
     <tr><td><a href=main.ts>main.ts</a></td><td>Entry point for the web-app</td></tr>
   </table>
@@ -120,6 +120,48 @@ In order to keep as much information as possible, while simplifying inputs to fe
 - *19:30*-*21:30* -> 7,
 - *21:30*-*23:15* -> 8 and
 - *23:13*-*24:00* -> 9.
+
+## Models' Evaluation and Use of Predetermined Random Seeds
+In order to evaluate the models fairly, i.e., by using the same variation of train-test dataset split sets, random seed is set before each evaluation run. This also has the added consequence of reproducibility for each time the whole program is run, but while still keeping unbiaseness in training and evaluating the models.
+
+The code segment below displays the function used in evaluating any of the three regressors by running the _split, train, test_ process a specified number of N times, each using a different number $n \in {{0, 1, \ldots, N-1}}$ as the random seed.
+
+```Python
+def evaluate_regressor(regressor, X, y, N=100, name="Regressor"):
+  # Instantiate evaluation metrics lists
+  corrcoef = []
+  r_sq = []
+  rmse = []
+
+  for n in range(N):
+    tf.keras.utils.set_random_seed(n)
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+    regressor.fit(X_train, y_train)
+    y_pred = regressor.predict(X_test)
+
+    # Update evaluation metrics list
+    corrcoef.append(np.corrcoef(y_test, y_pred)[0,1])
+    r_sq.append(corrcoef[n]**2)
+    rmse.append(np.sqrt(mean_squared_error(y_test, y_pred)))
+
+  print("Average computed over " + str(N) + " runs")
+  print("corrcoef - avg:",np.mean(corrcoef),"std:",np.std(corrcoef))
+  print("R-squared - avg:",np.mean(r_sq),"std:",np.std(r_sq))
+  print("RMSE - avg:",np.mean(rmse),"std:",np.std(rmse))
+```
+
+### Comparing actual vs predicted values 
+Additionally, a `special_seed_val=5` is initialized early on determining the chosen seed for which the displayed plot will base its dataset split on.
+
+The code segment below is included in the above code for the [models' evaluation method](#models-evaluation-and-use-of-predetermined-random-seeds) inside its for-loop.
+```Python
+if n==special_seed_val:
+  print("This particular iteration:")
+  show_pred_vs_actual(regressor, X_test, y_test, name)
+  print("(Evaluated for single run with random seed="+str(n)+")")
+```
 
 # Models
 ## Descriptive Statistic Baseline Models
