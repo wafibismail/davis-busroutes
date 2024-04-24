@@ -2,7 +2,7 @@
 function getClientHtml(domain) {
   return `<html>
     <body>
-      <iframe src="https://github.com/wafibismail/davis-busroutes/raw/main/app_assets/pages/pva_time_day.html" title="PVA - Time vs Day"></iframe>
+      <iframe src="app_assets/pages/pva_time_day.html" title="PVA - Time vs Day"></iframe>
     </body>
   </html>`;
 }
