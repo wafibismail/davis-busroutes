@@ -6,7 +6,7 @@ function getClientHtml(domain) {
         const ws = new WebSocket("wss://${domain}/");
       </script>
       <div style="display: flex;" id="controls" height="10%" width="100%">
-        <button style="flex: 1;" onclick="ws.send(0)">Mean Move Durations (by path)</button>
+        <button onload="ws.send(0)" style="flex: 1;" onclick="ws.send(0)">Mean Move Durations (by path)</button>
         <button style="flex: 1;" onclick="ws.send(1)">Idle Durations</button>
         <button style="flex: 1;" onclick="ws.send(2)">Move Durations</button>
         <button style="flex: 1;" onclick="ws.send(3)">Time (Discritized)</button>
@@ -20,7 +20,7 @@ function getClientHtml(domain) {
         <button style="flex: 1;" onclick="ws.send(11)">Evaluation (ANN)</button>
       </div>
       <div id="the_output" height="90%" width="100%">
-        <iframe onload="ws.send(0)" id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>
+        <iframe id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>
       </div>
       <script>
         const output = document.querySelector("#the_output");
