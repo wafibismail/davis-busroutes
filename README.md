@@ -121,6 +121,20 @@ In order to keep as much information as possible, while simplifying inputs to fe
 - *21:30*-*23:15* -> 8 and
 - *23:13*-*24:00* -> 9.
 
+In the code, this is done as such
+```Python
+# Generate a list of time boundaries in seconds
+timebreaks_source = [6, 8, 10, 12, 13.5, 16, 17.5, 19.5, 21.5, 23.25, 24]
+timebreaks = [(timebreaks_source[i+1]*60*60) for i in range(10)]
+```
+```Python
+for l in range(len(timebreaks)):
+  if time < timebreaks[l]:
+    t_dict['time#'].append(l-1)
+    break
+```
+... where `time#` is the discretization of the `time` variable
+
 ## Models' Evaluation and Use of Predetermined Random Seeds
 In order to evaluate the models fairly, i.e., by using the same variation of train-test dataset split sets, random seed is set before each evaluation run. This also has the added consequence of reproducibility for each time the whole program is run, but while still keeping unbiaseness in training and evaluating the models.
 
