@@ -124,7 +124,7 @@ In order to keep as much information as possible, while simplifying inputs to fe
 ## Models' Evaluation and Use of Predetermined Random Seeds
 In order to evaluate the models fairly, i.e., by using the same variation of train-test dataset split sets, random seed is set before each evaluation run. This also has the added consequence of reproducibility for each time the whole program is run, but while still keeping unbiaseness in training and evaluating the models.
 
-The code segment below displays the function used in evaluating any of the three regressors by running the _split, train, test_ process a specified number of N times, each using a different number $n \in {{0, 1, \ldots, N-1}}$ as the random seed.
+The code segment below displays the function used in evaluating any of the three regressors by running the _split, train, test_ process a specified number of N times, each using a different number $n \in \{{0, 1, \ldots, N-1\}}$ as the random seed.
 
 ```Python
 def evaluate_regressor(regressor, X, y, N=100, name="Regressor"):
