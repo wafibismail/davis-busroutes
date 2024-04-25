@@ -1,5 +1,6 @@
 function getClientHtml(domain) {
   return `<html>
+    <head><title>Dashboard</title></head>
     <body>
       <div style="display: flex;" id="controls" height="10%" width="100%">
         <button style="flex: 1;" onclick="ws.send(0)">Mean Move Durations (by path)</button>
