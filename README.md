@@ -4,7 +4,7 @@
   <p>This is a repository for source files for the <i>CI5304: Data Analytics and Visualization (DAVIS)</i> module's group assignment.</p><br />
   <table>
     <tr><th>Content</th><th>Description</th></tr>
-    <tr><td><a href=https://colab.research.google.com/github/wafibismail/davis-busroutes/blob/main/notebook.ipynb>notebook.ipynb</a></td><td>Python notebook file imported from Colab</td></tr>
+    <tr><td><a href=https://colab.research.google.com/github/wafibismail/davis-busroutes/blob/main/notebook.ipynb>notebook.ipynb</a></td><td>Jupyter Notebook file imported from Colab</td></tr>
     <tr><td><a href=raw_dataset>raw_dataset</a></td><td>Directory containing the 26 .csv files</td></tr>
     <tr><td><a href=main.ts>main.ts</a></td><td>Entry point for the <a href=https://davis-busroutes.deno.dev/>Dashboard web application (click here to open)</a></td></tr>
     <tr><td><a href=report.pdf>report.pdf</a></td><td>The project documentation which follows <a href=https://ieeexplore.ieee.org/abstract/document/10147536>"Non-GPS-based ..."</a></td></tr>
