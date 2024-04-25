@@ -33,19 +33,19 @@ function getClientHtml(domain) {
   </html>`;
 }
 
-const means = await Deno.readTextFile("./app_assets/means.html");
-const boxplot = await Deno.readTextFile("./app_assets/boxplot.html");
-const idle_durations = await Deno.readTextFile("./app_assets/idle_durations.html");
-const move_durations = await Deno.readTextFile("./app_assets/move_durations.html");
-const time_discretized = await Deno.readTextFile("./app_assets/time_discretized.html");
-const time_undiscretized = await Deno.readTextFile("./app_assets/time_undiscretized.html");
-const pva_path_time = await Deno.readTextFile("./app_assets/pva_path_time.html");
-const pva_path_day = await Deno.readTextFile("./app_assets/pva_path_day.html");
-const pva_time_day= await Deno.readTextFile("./app_assets/pva_time_day.html");
-const DecisionTreeRegressor_prediction = await Deno.readTextFile("./app_assets/DecisionTreeRegressor_prediction.html");
-const RandomForestRegressor_prediction = await Deno.readTextFile("./app_assets/RandomForestRegressor_prediction.html");
-const KNearestNeighborsRegressor_prediction = await Deno.readTextFile("./app_assets/KNearestNeighborsRegressor_prediction.html");
-const ANNPredictiveModel_prediction = await Deno.readTextFile("./app_assets/ANNPredictiveModel_prediction.html");
+const means = await Deno.readTextFile("./app_assets/means");
+const boxplot = await Deno.readTextFile("./app_assets/boxplot");
+const idle_durations = await Deno.readTextFile("./app_assets/idle_durations");
+const move_durations = await Deno.readTextFile("./app_assets/move_durations");
+const time_discretized = await Deno.readTextFile("./app_assets/time_discretized");
+const time_undiscretized = await Deno.readTextFile("./app_assets/time_undiscretized");
+const pva_path_time = await Deno.readTextFile("./app_assets/pva_path_time");
+const pva_path_day = await Deno.readTextFile("./app_assets/pva_path_day");
+const pva_time_day= await Deno.readTextFile("./app_assets/pva_time_day");
+const DecisionTreeRegressor_prediction = await Deno.readTextFile("./app_assets/DecisionTreeRegressor_prediction");
+const RandomForestRegressor_prediction = await Deno.readTextFile("./app_assets/RandomForestRegressor_prediction");
+const KNearestNeighborsRegressor_prediction = await Deno.readTextFile("./app_assets/KNearestNeighborsRegressor_prediction");
+const ANNPredictiveModel_prediction = await Deno.readTextFile("./app_assets/ANNPredictiveModel_prediction");
 
 Deno.serve((request: Request) => {
   if (request.headers.get("upgrade") === "websocket") {
