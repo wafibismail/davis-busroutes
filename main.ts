@@ -3,17 +3,18 @@ function getClientHtml(domain) {
     <body>
       <div style="display: flex;" id="controls" height="10%" width="100%">
         <button style="flex: 1;" onclick="ws.send(0)">Mean Move Durations (by path)</button>
-        <button style="flex: 1;" onclick="ws.send(1)">Idle Durations</button>
-        <button style="flex: 1;" onclick="ws.send(2)">Move Durations</button>
-        <button style="flex: 1;" onclick="ws.send(3)">Time (Discritized)</button>
-        <button style="flex: 1;" onclick="ws.send(4)">Time (Undiscritized)</button>
-        <button style="flex: 1;" onclick="ws.send(5)">Surface (Path/Time)</button>
-        <button style="flex: 1;" onclick="ws.send(6)">Surface (Path/Day)</button>
-        <button style="flex: 1;" onclick="ws.send(7)">Surface (Time/Day)</button>
-        <button style="flex: 1;" onclick="ws.send(8)">Evaluation (DT)</button>
-        <button style="flex: 1;" onclick="ws.send(9)">Evaluation (RF)</button>
-        <button style="flex: 1;" onclick="ws.send(10)">Evaluation (KNN)</button>
-        <button style="flex: 1;" onclick="ws.send(11)">Evaluation (ANN)</button>
+        <button style="flex: 1;" onclick="ws.send(1)">Box Plot of Move Durations (by path)</button>
+        <button style="flex: 1;" onclick="ws.send(2)">Idle Durations</button>
+        <button style="flex: 1;" onclick="ws.send(3)">Move Durations</button>
+        <button style="flex: 1;" onclick="ws.send(4)">Time (Discritized)</button>
+        <button style="flex: 1;" onclick="ws.send(5)">Time (Undiscritized)</button>
+        <button style="flex: 1;" onclick="ws.send(6)">Surface (Path/Time)</button>
+        <button style="flex: 1;" onclick="ws.send(7)">Surface (Path/Day)</button>
+        <button style="flex: 1;" onclick="ws.send(8)">Surface (Time/Day)</button>
+        <button style="flex: 1;" onclick="ws.send(9)">Evaluation (DT)</button>
+        <button style="flex: 1;" onclick="ws.send(10)">Evaluation (RF)</button>
+        <button style="flex: 1;" onclick="ws.send(11)">Evaluation (KNN)</button>
+        <button style="flex: 1;" onclick="ws.send(12)">Evaluation (ANN)</button>
       </div>
       <div id="the_output" height="90%" width="100%">
         <iframe id="the_iframe" height="92.5%" width="100%" title="Dashboard"></iframe>
@@ -33,6 +34,7 @@ function getClientHtml(domain) {
 }
 
 const means = await Deno.readTextFile("./app_assets/pages/means.html");
+const boxplot = await Deno.readTextFile("./app_assets/pages/boxplot.html");
 const idle_durations = await Deno.readTextFile("./app_assets/pages/idle_durations.html");
 const move_durations = await Deno.readTextFile("./app_assets/pages/move_durations.html");
 const time_discretized = await Deno.readTextFile("./app_assets/pages/time_discretized.html");
@@ -53,17 +55,18 @@ Deno.serve((request: Request) => {
     // Listen for incoming messages
     socket.onmessage = (_e) => {
       if (_e.data==0) socket.send(means);
-      else if (_e.data==1) socket.send(idle_durations);
-      else if (_e.data==2) socket.send(move_durations);
-      else if (_e.data==3) socket.send(time_discretized);
-      else if (_e.data==4) socket.send(time_undiscretized);
-      else if (_e.data==5) socket.send(pva_path_time);
-      else if (_e.data==6) socket.send(pva_path_day);
-      else if (_e.data==7) socket.send(pva_time_day);
-      else if (_e.data==8) socket.send(DecisionTreeRegressor_prediction);
-      else if (_e.data==9) socket.send(RandomForestRegressor_prediction);
-      else if (_e.data==10) socket.send(KNearestNeighborsRegressor_prediction);
-      else if (_e.data==11) socket.send(ANNPredictiveModel_prediction);
+      else if (_e.data==1) socket.send(boxplot);
+      else if (_e.data==2) socket.send(idle_durations);
+      else if (_e.data==3) socket.send(move_durations);
+      else if (_e.data==4) socket.send(time_discretized);
+      else if (_e.data==5) socket.send(time_undiscretized);
+      else if (_e.data==6) socket.send(pva_path_time);
+      else if (_e.data==7) socket.send(pva_path_day);
+      else if (_e.data==8) socket.send(pva_time_day);
+      else if (_e.data==9) socket.send(DecisionTreeRegressor_prediction);
+      else if (_e.data==10) socket.send(RandomForestRegressor_prediction);
+      else if (_e.data==11) socket.send(KNearestNeighborsRegressor_prediction);
+      else if (_e.data==12) socket.send(ANNPredictiveModel_prediction);
       else socket.send("Invalid code");
     };
 
